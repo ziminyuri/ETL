@@ -14,9 +14,7 @@ class Extraction:
                 fw.title,
                 fw.description,
                 fw.rating as imdb_rating,
-                fw.created_at,
                 fw.updated_at,
---             JSON_AGG(DISTINCT jsonb_build_object('id', g.id, 'name', g.name)) AS genre,
             ARRAY_AGG(DISTINCT g.name) AS genre,
             ARRAY_AGG(DISTINCT p.full_name) FILTER (WHERE pfw.role = 'actor') AS actors_names,
             ARRAY_AGG(DISTINCT p.full_name) FILTER (WHERE pfw.role = 'writer') AS writers_names,
@@ -27,8 +25,7 @@ class Extraction:
                 MAX(DISTINCT p.updated_at) FILTER (WHERE pfw.role = 'actor'),
                 MAX(DISTINCT p.updated_at) FILTER (WHERE pfw.role = 'director')
             ) as all_updated_at,
-            ARRAY_AGG(DISTINCT pfw.full_name) FILTER (WHERE pfw.role = 'director') -> 0 AS director,
---             JSON_AGG(DISTINCT jsonb_build_object('id', p.id, 'name', p.full_name)) FILTER (WHERE pfw.role = 'director') -> 0 AS director,
+            ARRAY_AGG(DISTINCT p.full_name) FILTER (WHERE pfw.role = 'director') AS director,
             JSON_AGG(DISTINCT jsonb_build_object('id', p.id, 'name', p.full_name)) FILTER (WHERE pfw.role = 'actor') AS actors,
             JSON_AGG(DISTINCT jsonb_build_object('id', p.id, 'name', p.full_name)) FILTER (WHERE pfw.role = 'writer') AS writers
             FROM content.film_work fw
@@ -37,8 +34,8 @@ class Extraction:
             LEFT OUTER JOIN content.person_film_work pfw ON (fw.id = pfw.filmwork_id)
             LEFT OUTER JOIN content.person p ON (pfw.person_id = p.id)
             GROUP BY fw.id, fw.title, fw.description, fw.rating
-            HAVING fw.updated_at > '{state_updated_at}' OR MAX(g.updated_at) > '{state_updated_at}' OR MAX(p.updated_at) > '{state_updated_at}'
-            ORDER BY fw.updated_at;
+            HAVING fw.updated_at >= '{state_updated_at}' OR MAX(g.updated_at) >= '{state_updated_at}' OR MAX(p.updated_at) >= '{state_updated_at}'
+            ORDER BY all_updated_at
         """
         )
 

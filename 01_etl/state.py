@@ -62,9 +62,10 @@ class State:
 
     def get_state(self, key: str = None) -> Any:
         """Получить состояние по отпределенному ключу"""
-        if not key:
+        self.state_dict = self.storage.retrieve_state()
+
+        if not key or not key in self.state_dict.keys():
             return None
-        try:
+        else:
             return self.state_dict[key]
-        except Exception as e:
-            print(e)
+

@@ -3,30 +3,29 @@ from models import Film
 
 def transformation(data):
     new_data = []
+
     for row in data:
+        row = dict(row)
         f = Film(
-            id=dict(row).get('id'),
-            title=dict(row).get('title'),
-            imdb_rating=dict(row).get('imdb_rating'),
-            # genre=dict(row).get('genre'),
-            genre='adventure',
-            description=dict(row).get('description'),
-            director=dict(row).get('director'),
-            actors_names=_change_None_to_list(dict(row).get('actors_names')),
-            writers_names=_change_None_to_list(dict(row).get('writers_names')),
-            actors=_change_None_to_list(dict(row).get('actors')),
-            writers=_change_None_to_list(dict(row).get('writers')),
+            id=row.get('id'),
+            title='' if row.get('title') is None else row.get('title'),
+            imdb_rating='' if row.get('imdb_rating') is None else row.get('imdb_rating'),
+            genre=[] if row.get('genre') is None else row.get('genre'),
+            description='' if row.get('description') is None else row.get('description'),
+            director=[] if row.get('director') is None else row.get('director'),
+            actors_names=[] if row.get('actors_names') is None else row.get('actors_names'),
+            writers_names=[] if row.get('writers_names') is None else row.get('writers_names'),
+            actors=row.get('actors'),
+            writers=row.get('writers'),
         )
         new_data.append(f)
 
     return new_data
 
 
-def _change_None_to_list(value):
-    if value is None:
-        return []
-    else:
-        return value
+
+
+
 
 
 
