@@ -1,6 +1,7 @@
-from elasticsearch import Elasticsearch
-import backoff
 import json
+
+import backoff
+from elasticsearch import Elasticsearch
 
 
 class Loader:

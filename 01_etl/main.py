@@ -1,7 +1,6 @@
-from state import JsonFileStorage, State
-from config import PostgresConfig, ElasticConfig
+from config import ElasticConfig, PostgresConfig
 from etl_process import ETLProcess
-
+from state import JsonFileStorage, State
 
 if __name__ == '__main__':
     db = PostgresConfig()

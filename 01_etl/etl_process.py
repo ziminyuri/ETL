@@ -1,11 +1,12 @@
+import time
+from datetime import datetime
+
+import backoff
 import psycopg2
 from config import LOGGER
 from extraction import Extraction
-from datetime import datetime
-from transform import transformation
 from load import Loader
-import backoff
-import time
+from transform import transformation
 
 
 class ETLProcess:

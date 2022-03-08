@@ -1,6 +1,7 @@
-from pydantic import BaseModel
-from typing import Union, List, Dict
+from typing import Dict, List, Union
 from uuid import UUID
+
+from pydantic import BaseModel
 
 OBJ_ID = Union[UUID, str]
 OBJ_NAME = Union[str, str]

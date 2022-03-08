@@ -1,5 +1,6 @@
-from pydantic import Field, BaseSettings
 import logging
+
+from pydantic import BaseSettings, Field
 
 file_log = logging.FileHandler('app.log')
 console_out = logging.StreamHandler()

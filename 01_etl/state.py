@@ -1,7 +1,7 @@
 import abc
-from typing import Any, Optional
 import json
 import pathlib
+from typing import Any, Optional
 
 
 class BaseStorage:
