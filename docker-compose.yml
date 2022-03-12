@@ -9,13 +9,14 @@ services:
     env_file:
       - .env
 
-    ports:
-      - 5432:5432
+#    ports:
+#      - 5432:5432
     networks:
       - app-network
 
   es:
     image: elasticsearch:7.16.3
+    restart: always
     environment:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
@@ -29,6 +30,21 @@ services:
     ports:
       - "9200:9200"
     depends_on:
+      - db
+    networks:
+      - app-network
+
+  etl:
+    build: ./etl
+    command: python main.py
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./etl/:/etl
+      - .cache/pip-docker/:/root/.cache/pip
+    depends_on:
+      - es
       - db
     networks:
       - app-network

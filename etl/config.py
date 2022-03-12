@@ -25,13 +25,13 @@ class PostgresConfig(BaseSettings):
     host: str = Field(..., env='POSTGRES_HOST')
     port: str = Field(..., env='POSTGRES_PORT')
 
-    class Config:
-        env_file: str = '../.env'
+    # class Config:
+    #     env_file: str = '../.env'
 
 
 class ElasticConfig(BaseSettings):
     host: str = Field(..., env='ES_HOST')
     port: str = Field(..., env='ES_PORT')
 
-    class Config:
-        env_file: str = '../.env'
+    # class Config:
+    #     env_file: str = '../.env'

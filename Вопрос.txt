@@ -1,0 +1,17 @@
+Не могу приконктить через докер ETL процесс
+
+ошибка при подключении к БД
+локально если запускаю то все ок
+
+Ошибка:
+12 08:03:16,129 INFO Backing off get_db_connection(...) for 16.9s (psycopg2.OperationalError: could not connect to server: Connection refused
+
+Is the server running on host "localhost" (127.0.0.1) and accepting
+
+TCP/IP connections on port 5432?
+
+could not connect to server: Address not available
+
+Is the server running on host "localhost" (::1) and accepting
+
+TCP/IP connections on port 5432?)

@@ -1,12 +1,13 @@
 from config import BATCH
 from psycopg2.extras import DictCursor
+from psycopg2.extensions import connection
 
 
 class Extraction:
-    def __init__(self, conn):
-        self.cursor = conn.cursor(cursor_factory=DictCursor)
+    def __init__(self, conn: connection) -> None:
+        self.cursor: DictCursor = conn.cursor(cursor_factory=DictCursor)
 
-    def extracting(self, state_updated_at):
+    def extracting(self, state_updated_at: str) -> list:
         self.cursor.execute(
             f"""
             SELECT

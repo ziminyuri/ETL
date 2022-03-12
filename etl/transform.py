@@ -1,12 +1,12 @@
 from models import Film
 
 
-def transformation(data):
-    new_data = []
+def transformation(data: list) -> list:
+    new_data: list = []
 
     for row in data:
-        row = dict(row)
-        f = Film(
+        row: dict = dict(row)
+        f: Film = Film(
             id=row.get('id'),
             title='' if row.get('title') is None else row.get('title'),
             imdb_rating='' if row.get('imdb_rating') is None else row.get('imdb_rating'),
